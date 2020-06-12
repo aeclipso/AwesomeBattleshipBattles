@@ -9,7 +9,6 @@ abstract class Weapon
 	private $_rangeMedium;
     private $_rangeLong;
     private $_charge;
-    private $_zone = [];
 
     function __construct(int $id, string $name, int $short, int $medium, int $long, int $charge)
     {
@@ -24,21 +23,22 @@ abstract class Weapon
     {
         return $this->_name;
     }
-    public function calculateZone(int $myShipX, int $myShipY){
+
+    public function calculateZone(int $myShipX, int $myShipY, $myshipOrintation, int $range_type){
         //calc zone by specification and return zone points x,y
         return [];
     }
 
-    public function shoot(bool $isAnfailaide, int $myShipX, int $myShipY){
-        if ($this->_charge > 0){
-            if ($isAnfailaide)
-            {
-                //set some params;
-            }
-            $this->calculateZone($myShipX, $myShipY);
-            $this->_charge--;
-        }
-    }
+    // public function shoot(int $myX, int $myY, int $range_type){
+    //     if ($range_type < 0 || $range_type > 2)
+    //         return;
+    //     if ($this->_charge <= 0)
+    //         return;
+    //     $result_coords = $this->calculateZone($myX, $myY, $range_type);
+    //     $this->_charge--;
+    //     $this->resetPP();
+    //     return $result_coords;
+    // }
 
     public function upgradePP(int $PP)
     {
@@ -46,9 +46,21 @@ abstract class Weapon
         $this->_charge += $PP;
     }
 
-    public function resetPP(int $PP)
+    public function resetPP()
     {
-        $this->_charge -=$PP;
+        $this->_charge -= $this->PP;
         $this->PP = 0;
+    }
+
+    public function getRange(int $range_type){
+        if ($range_type === 0){
+            $total_range = $this->_rangeShort;
+        }
+        else if ($range_type === 1){
+            $total_range = $this->_rangeMedium;
+        }
+        else if ($range_type === 2)
+            $total_range = $this->_rangeLong;
+        }
     }
 }

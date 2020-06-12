@@ -1,7 +1,8 @@
 <?php
-	class SideLaserBatteries extends Weapon{
-		public function calculateZone()
-		{
+	class NauticalLance extends Weapon{
 
+		public function calculateZone(int $myShipX, int $myShipY, int $range_type) {
+			//Заглушка
+			return [];
 		}
 	}
