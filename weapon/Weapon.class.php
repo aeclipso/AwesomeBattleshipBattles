@@ -25,4 +25,12 @@ abstract class Weapon
     public function calculateZone(){
 
     }
+
+    public function shoot(bool $isAnfailaide){
+        if ($isAnfailaide)
+        {
+            //set some params;
+        }
+        $this->calculateZone();
+    }
 }
