@@ -3,11 +3,13 @@
 abstract class Weapon
 {
     public $id;
+    public $currentPP = 0;
     private $_name;
     private $_rangeShort;
 	private $_rangeMedium;
     private $_rangeLong;
     private $_charge;
+    private $_zone = [];
 
     function __construct(int $id, string $name, int $short, int $medium, int $long, int $charge)
     {
@@ -22,15 +24,31 @@ abstract class Weapon
     {
         return $this->_name;
     }
-    public function calculateZone(){
-
+    public function calculateZone(int $myShipX, int $myShipY){
+        //calc zone by specification and return zone points x,y
+        return [];
     }
 
-    public function shoot(bool $isAnfailaide){
-        if ($isAnfailaide)
-        {
-            //set some params;
+    public function shoot(bool $isAnfailaide, int $myShipX, int $myShipY){
+        if ($this->_charge > 0){
+            if ($isAnfailaide)
+            {
+                //set some params;
+            }
+            $this->calculateZone($myShipX, $myShipY);
+            $this->_charge--;
         }
-        $this->calculateZone();
+    }
+
+    public function upgradePP(int $PP)
+    {
+        $this->PP = $PP;
+        $this->_charge += $PP;
+    }
+
+    public function resetPP(int $PP)
+    {
+        $this->_charge -=$PP;
+        $this->PP = 0;
     }
 }
