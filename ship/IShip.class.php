@@ -1,7 +1,7 @@
 <?php
 	interface IShip
 	{
-		public function __construct($id, $name, $weapon, $coordX, $coordY, $orientation, $length, $hp, $pp, $speed, $owner);
+		public function __construct($id, $name, $weapon, $coordX, $coordY, $orientation, $length, $hp, $pp, $speed, $owner, $shield, $width);
 		public function setName($name);
 		public function getName();
 		public function setWeapon($weapon);
@@ -13,6 +13,7 @@
 		public function getCoord_y();
 		public function doMove();
 		public function doRotate($ungle);
+		public function doRotateW($ungle);
 //		public function checkRotate();
 //      может быть проверять в конкретных кораблях? это условие для унитожения
 
@@ -20,5 +21,17 @@
 		public function getUngle();
 		public function setOrientation($orient);
 		public function getOrientation();
-//		public function
+		public static function doc();
+		public function getWidth();
+		public function setWidth($width);
+		public function setShield($shield);
+		public function getShield();
+		public function getLength();
+		public function setLength($length);
+		public function getId();
+		public function setId($id);
+		public function setOwner($owner);
+		public function getOwner();
+		public function setHp($hp);
+		public function getHp();
 	}

@@ -11,6 +11,7 @@ class Ship implements IShip
     private $_orientation;
     private $_ungle;
     private $_lenght;
+    private $_width;
     private $_hp;
     private $_pp;
     private $_sprite;
@@ -19,7 +20,7 @@ class Ship implements IShip
     private $_owner;
     private $_imgUrl;
 
-    function __construct($id, $name, $weapon, $coordX, $coordY, $orientation, $length, $hp, $pp, $speed, $owner)
+    function __construct($id, $name, $weapon, $coordX, $coordY, $orientation, $length, $hp, $pp, $speed, $owner, $shield, $width)
     {
     	$this->setId($id);
         $this->setName($name);
@@ -32,6 +33,24 @@ class Ship implements IShip
         $this->_pp = $pp;
         $this->_speed = $speed;
         $this->setOwner($owner);
+        $this->setWidth($width);
+        $this->setShield($shield);
+    }
+
+    public function getWidth(){
+        return $this->_width;
+    }
+
+    public function setWidth($width){
+    	$this->_width = $width;
+    }
+
+    public function setShield($shield){
+    	$this->_shield = $shield;
+    }
+
+    public function getShield(){
+    	return $this->_shield;
     }
 
 	public function getLength(){
@@ -127,64 +146,117 @@ class Ship implements IShip
     		$this->_orientation = $orient;
 	    }
     	else{
-    		$this->_orientation = "right";
+    		if ($this->_owner == 1){
+    		    $this->_orientation = 3;
+		    }
+    		else{
+    			$this->_orientation = 9;
+		    }
 	    }
     }
 
-    public function getOrientation()
-    {
+    public function getOrientation(){
 	    return $this->_orientation;
     }
 
     public function doRotate($ungle)
     {
 	    if ($ungle == 90){
-	    	if ($this->getOrientation() === "left"){
-	    		$this->setOrientation("up");
+	    	if ($this->getOrientation() == 9){
+	    		$this->setOrientation(12);
 	    		$this->setCoord_x($this->_coordX - intval(round($this->_lenght/2)));
 	    		$this->setCoord_y($this->_coordY + intval(round($this->_lenght/2)));
 		    }
-	    	elseif ($this->getOrientation() === "up"){
-			    $this->setOrientation("right");
+	    	elseif ($this->getOrientation() == 12 ){
+			    $this->setOrientation(3);
 			    $this->setCoord_x($this->_coordX - intval(round($this->_lenght/2)));
 			    $this->setCoord_y($this->_coordY - intval(round($this->_lenght/2)));
 		    }
-	    	elseif($this->getOrientation() === "right"){
-			    $this->setOrientation("down");
+	    	elseif($this->getOrientation() == 3){
+			    $this->setOrientation(6);
 			    $this->setCoord_x($this->_coordX + intval(round($this->_lenght/2)));
 			    $this->setCoord_y($this->_coordY - intval(round($this->_lenght/2)));
 		    }
-	    	elseif($this->getOrientation() === "down") {
-			    $this->setOrientation("left");
+	    	elseif($this->getOrientation() == 6) {
+			    $this->setOrientation(9);
 			    $this->setCoord_x($this->_coordX + intval(round($this->_lenght/2)));
 			    $this->setCoord_y($this->_coordY + intval(round($this->_lenght/2)));
 		    }
 	    }
 	    else{
-		    if ($this->getOrientation() === "up"){
-			    $this->setOrientation("left");
+		    if ($this->getOrientation() == 12){
+			    $this->setOrientation(9);
 			    $this->setCoord_x($this->_coordX + intval(round($this->_lenght/2)));
 			    $this->setCoord_y($this->_coordY - intval(round($this->_lenght/2)));
 		    }
-		    elseif ($this->getOrientation() === "left"){
-			    $this->setOrientation("down");
+		    elseif ($this->getOrientation() == 9){
+			    $this->setOrientation(6);
 			    $this->setCoord_x($this->_coordX - intval(round($this->_lenght/2)));
 			    $this->setCoord_y($this->_coordY - intval(round($this->_lenght/2)));
 		    }
-		    elseif($this->getOrientation() === "down"){
-			    $this->setOrientation("right");
+		    elseif($this->getOrientation() == 6){
+			    $this->setOrientation(3);
 			    $this->setCoord_x($this->_coordX - intval(round($this->_lenght/2)));
 			    $this->setCoord_y($this->_coordY + intval(round($this->_lenght/2)));
 		    }
-		    elseif($this->getOrientation() === "right"){
-			    $this->setOrientation("up");
+		    elseif($this->getOrientation() == 3){
+			    $this->setOrientation(12);
 			    $this->setCoord_x($this->_coordX + intval(round($this->_lenght/2)));
 			    $this->setCoord_y($this->_coordY + intval(round($this->_lenght/2)));
 		    }
 	    }
     }
 
-    public function setUngle($ungle)
+	public function doRotateW($ungle)
+	{
+		if ($ungle == 90){
+			if ($this->getOrientation() == 9){
+				$this->setOrientation(12);
+				$this->setCoord_x($this->_coordX - intval(round($this->_lenght/2)));
+				$this->setCoord_y($this->_coordY + intval(round($this->_lenght/2)) - intval(round($this->_width/2)));
+			}
+			elseif ($this->getOrientation() == 12 ){
+				$this->setOrientation(3);
+				$this->setCoord_x($this->_coordX - intval(round($this->_lenght/2)) + intval(round($this->_width/2)));
+				$this->setCoord_y($this->_coordY - intval(round($this->_lenght/2)));
+			}
+			elseif($this->getOrientation() == 3){
+				$this->setOrientation(6);
+				$this->setCoord_x($this->_coordX + intval(round($this->_lenght/2)));
+				$this->setCoord_y($this->_coordY - intval(round($this->_lenght/2)) + intval(round($this->_width/2)));
+			}
+			elseif($this->getOrientation() == 6) {
+				$this->setOrientation(9);
+				$this->setCoord_x($this->_coordX + intval(round($this->_lenght/2)) - intval(round($this->_width/2)));
+				$this->setCoord_y($this->_coordY + intval(round($this->_lenght/2)));
+			}
+		}
+		else{
+			if ($this->getOrientation() == 12){
+				$this->setOrientation(9);
+				$this->setCoord_x($this->_coordX + intval(round($this->_lenght/2)));
+				$this->setCoord_y($this->_coordY - intval(round($this->_lenght/2)) + intval(round($this->_width/2)));
+			}
+			elseif ($this->getOrientation() == 9){
+				$this->setOrientation(6);
+				$this->setCoord_x($this->_coordX - intval(round($this->_lenght/2)) + intval(round($this->_width/2)));
+				$this->setCoord_y($this->_coordY - intval(round($this->_lenght/2)));
+			}
+			elseif($this->getOrientation() == 6){
+				$this->setOrientation(3);
+				$this->setCoord_x($this->_coordX - intval(round($this->_lenght/2)));
+				$this->setCoord_y($this->_coordY + intval(round($this->_lenght/2)) - intval(round($this->_width/2)));
+			}
+			elseif($this->getOrientation() == 3){
+				$this->setOrientation(12);
+				$this->setCoord_x($this->_coordX + intval(round($this->_lenght/2)) - intval(round($this->_width/2)));
+				$this->setCoord_y($this->_coordY + intval(round($this->_lenght/2)));
+			}
+		}
+	}
+
+
+	public function setUngle($ungle)
     {
     	$this->_ungle = $ungle;
     }
@@ -193,4 +265,12 @@ class Ship implements IShip
     {
 	    return $this->_ungle;
     }
+    public static function doc()
+    {
+		print_r("\n");
+		print_r(file_get_contents("./Ship.doc.txt"));
+		print_r("\n");
+		return;
+	}
 }
+

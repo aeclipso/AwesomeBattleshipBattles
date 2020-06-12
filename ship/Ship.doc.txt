@@ -23,9 +23,22 @@ public function getCoord_x();         возвращает координату 
 public function getCoord_y();         возвращает координату хвоста У
 public function doMove();             перемещает корабль по полю (координата хвостовой клетки)
 public function doRotate($ungle);     поворачивает корабль по часовой или против часовой стрелке
+public function doRotateW($ungle);    поворачивает корабль с шириной больше 1
 public function setUngle($ungle);     устанавливает угол поворота    90 или -90
 public function getUngle();           получаем угол поворота
 public function setOrientation($orient); устанавливается ориентация корабля (от хвоста к носу) (left, right, up, down)
 public function getOrientation();        возвращает ориентацию корабля
-
+public static function doc();             выводит док
+public function getWidth();                 возвращает ширину
+public function setWidth($width);           устанавливает ширину
+public function setShield($shield);         устанавливает значение щита
+public function getShield();                возвращает значение щита
+public function getLength();                возвращает длину
+public function setLength($length);         устанавливает длину
+public function getId();                    возвращает Id корабля
+public function setId($id);                 устанавливает Id корабля
+public function setOwner($owner);           Устанавливает владельца (1 или 2)
+public function getOwner();                 возвращает владельца
+public function setHp($hp);                 устанавливает очки здоровье
+public function getHp();                    возврщает очки здоровья
 ---------------------------------------------------------------------- Ship ->
