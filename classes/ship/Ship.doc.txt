@@ -1,0 +1,31 @@
+<- Ship ----------------------------------------------------------------------
+Ship Class
+
+Содержит:
+name (Название корабля) : string;
+weapon (Орудие) : class Weapon;
+
+Задается:
+Обязательный параметр 'name' // не реализована обязательность
+
+Пример:
+$honor = new Ship('Honorable Duty');
+
+Содержит методы:
+setName(string $name); // Может сделать private, что бы небыло возможности менять
+string getName() - возвращает имя корабля;
+setWeapon(Weapon $weapon) - устанавливает орудие;
+Weapon getWeapon() - возвращает объект орудие;
+
+public function setCoord_x($coord_x); устанавливает координату хвоста Х
+public function setCoord_y($coord_y); устанавливает координату хвоста У
+public function getCoord_x();         возвращает координату хвоста Х
+public function getCoord_y();         возвращает координату хвоста У
+public function doMove();             перемещает корабль по полю (координата хвостовой клетки)
+public function doRotate($ungle);     поворачивает корабль по часовой или против часовой стрелке
+public function setUngle($ungle);     устанавливает угол поворота    90 или -90
+public function getUngle();           получаем угол поворота
+public function setOrientation($orient); устанавливается ориентация корабля (от хвоста к носу) (left, right, up, down)
+public function getOrientation();        возвращает ориентацию корабля
+
+---------------------------------------------------------------------- Ship ->
