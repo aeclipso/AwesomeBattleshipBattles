@@ -6,6 +6,7 @@ class Game {
     private $_players;
 	private $_state;
 	private $_playersColorSet;
+	private $_ships;
 	public $field;
     //  game states
     const IDLE = 'IDLE';
@@ -122,8 +123,39 @@ class Game {
 		return 0;
 	}
 
-	public function update( $x, $y, $update_type ) {
+	public function _update_field() { // make it private
+		foreach ($this->_ships as $ship) { //change for ships of each player
+			$x = $ship->getCoord_x();
+			$y = $ship->getCoord_x();
+			$o = $ship->getOrientation();
+			$len = $ship->getLength();
+			if ($o == Self::N || $o == Self::S) {
+				$end = ($o == Self::N) ? $y + $len : $y - $len;
+				if ($this->_update_y_range($x, $y, $end, $ship->getId())) {
+					// call ship destroy method (delete it from player fleet) and then
+					$this->_update_y_range($x, $y, $end, 0);
+				}
+			}
+		}
+	}
 
+	private function _update_y_range($x, $y, $y_end, $val) {
+		if ($y <= $y_end) {
+			while ($y <= $y_end) {
+				if ($y >= Self::Y_MAX)
+					return $val ? 1 : 0;
+				$this->field[$x][$y] = $val;
+				$y += 1;
+			}
+		} else {
+			while ($y >= $y_end) {
+				if ($y < 0)
+					return $val ? 1 : 0;
+				$this->field[$x][$y] = $val;
+				$y -= 1;
+			}
+		}
+		return 0;
 	}
 
 	public function getPlayersColorSet() {
@@ -136,8 +168,10 @@ $game = new Game();
 $x = 7;
 $y = 5;
 $len = 7;
-// place a ship at x = 7, y = $y;
+// place a ship;
 $game->field[$x][$y] = 1;
+// place a ship;
+$game->field[$x][$y + 1] = 1;
 // test shoot type 1 in direction E
 $game->_calculate_shot( new Shot(0, $y, $len, Game::E, 'line') );
 // test shoot type 1 in direction W
@@ -147,10 +181,6 @@ $game->_calculate_shot( new Shot($x, 0, $len, Game::N, 'line') );
 // test shoot type 1 in direction S
 $game->_calculate_shot( new Shot($x, 9, $len, Game::S, 'line') );
 
-//field reset
-$game->field[$x][$y] = 0;
-// place a ship at x = 7, y = $y;
-$game->field[$x][$y] = 1;
 // test shoot type 2 in direction E
 $game->_calculate_shot( new Shot($x - 2, $y + 1, $len, Game::E, 'cone') );
 // test shoot type 2 in direction W
