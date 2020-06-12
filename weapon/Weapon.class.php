@@ -1,31 +1,28 @@
 <?php
 
-class Weapon
+abstract class Weapon
 {
     public $id;
     private $_name;
-    private $_distanceShort;
-	private $_distanceMedium;
-    private $_distanceLong;
+    private $_rangeShort;
+	private $_rangeMedium;
+    private $_rangeLong;
     private $_charge;
-    private $_zone;
 
-    function __construct(int $id, string $name, int $short, int $medium, int $long, int $charge, $zone)
+    function __construct(int $id, string $name, int $short, int $medium, int $long, int $charge)
     {
-        $this->setName($name);
+        $this->name = $name;
         $this->id = $id;
-        $this->_distanceShort = $short;
-        $this->_distanceMedium = $medium;
-        $this->_distanceLong = $long;
-        $this->_zone = $zone;
+        $this->_rangeShort = $short;
+        $this->_rangeMedium = $medium;
+        $this->_rangeLong = $long;
         $this->_charge = $charge;
-    }
-    public function setName($name)
-    {
-        $this->_name = $name;
     }
     public function getName()
     {
         return $this->_name;
+    }
+    public function calculateZone(){
+
     }
 }
