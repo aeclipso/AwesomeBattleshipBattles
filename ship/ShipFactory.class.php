@@ -6,7 +6,6 @@ class ShipFactory extends ItemFactory
 
     public function absorb($item)
     {
-        //$str_class = 'Ship';
         parent::absorb($item, CLASS_NAME);
     }
 }
