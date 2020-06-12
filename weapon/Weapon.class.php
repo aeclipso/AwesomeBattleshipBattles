@@ -29,17 +29,6 @@ abstract class Weapon
         return [];
     }
 
-    // public function shoot(int $myX, int $myY, int $range_type){
-    //     if ($range_type < 0 || $range_type > 2)
-    //         return;
-    //     if ($this->_charge <= 0)
-    //         return;
-    //     $result_coords = $this->calculateZone($myX, $myY, $range_type);
-    //     $this->_charge--;
-    //     $this->resetPP();
-    //     return $result_coords;
-    // }
-
     public function upgradePP(int $PP)
     {
         $this->PP = $PP;
@@ -53,14 +42,14 @@ abstract class Weapon
     }
 
     public function getRange(int $range_type){
-        if ($range_type === 0){
-            $total_range = $this->_rangeShort;
+        if ($range_type == 0){
+            return $this->_rangeShort;
         }
-        else if ($range_type === 1){
-            $total_range = $this->_rangeMedium;
+        else if ($range_type == 1){
+            return $this->_rangeMedium;
         }
-        else if ($range_type === 2){
-            $total_range = $this->_rangeLong;
+        else if ($range_type == 2){
+            return $this->_rangeLong;
         }
     }
 }
