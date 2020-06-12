@@ -21,18 +21,55 @@ class Ship implements IShip
 
     function __construct($id, $name, $weapon, $coordX, $coordY, $orientation, $length, $hp, $pp, $speed, $owner)
     {
-    	$this->_id = $id;
+    	$this->setId($id);
         $this->setName($name);
         $this->setWeapon($weapon);
         $this->setCoord_x($coordX);
         $this->setCoord_y($coordY);
         $this->setOrientation($orientation);
-        $this->_lenght = $length;
-        $this->_hp = $hp;
+        $this->setLength($length);
+        $this->setHp($hp);
         $this->_pp = $pp;
         $this->_speed = $speed;
-        $this->_owner = $owner; //написать геттеры/сеттеры?
+        $this->setOwner($owner);
     }
+
+	public function getLength(){
+    	return $this->_lenght;
+	}
+
+    public function setLength($length){
+    	$this->_lenght = $length;
+    }
+
+    public function getId(){
+    	return $this->_id;
+    }
+
+    public function setId($id){
+    	$this->_id = $id;
+    }
+
+    public function setOwner($owner)
+    {
+    	$this->_owner = $owner;
+    }
+
+    public function getOwner()
+    {
+    	return $this->_owner;
+    }
+
+    public function setHp($hp)
+    {
+    	$this->_hp = $hp;
+    }
+
+    public function getHp()
+    {
+    	return $this->_hp;
+    }
+
     public function setName($name)
     {
         $this->_name = $name;
