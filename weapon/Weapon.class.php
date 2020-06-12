@@ -59,7 +59,7 @@ abstract class Weapon
         else if ($range_type === 1){
             $total_range = $this->_rangeMedium;
         }
-        else if ($range_type === 2)
+        else if ($range_type === 2){
             $total_range = $this->_rangeLong;
         }
     }
