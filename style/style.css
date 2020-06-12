@@ -1,5 +1,23 @@
 @import url("https://fonts.googleapis.com/css2?family=Montserrat&display=swap");
 
+
+/* testing zone */
+.map {
+  position: relative;
+  width: 300px;
+  height: 300px;
+  background-color: gray;
+}
+
+.ship {
+  position: absolute;
+  width: 10px;
+  height: 40px;
+  background-color: red;
+}
+/* testing zone */
+
+
 /* general style */
 
 * {
@@ -87,6 +105,29 @@ section {
 }
 
 .button:hover {
+  background-color: #2a2a2a;
+  border: 1px solid #6d6d6d;
+  color: #7e57c2;
+  transition: 0.6s;
+}
+
+.input {
+  display: inline-block;
+  outline: none;
+  text-decoration: none;
+  /* text-transform: uppercase; */
+  color: #fafafa;
+  padding: 10px 20px;
+  width: 20rem;
+  margin: 10px 2rem;
+  text-align: center;
+  border-radius: 5px;
+  border: 1px solid #a1a1a1;
+  background-color: #1a1a1a;
+  transition: 0.3s;
+}
+
+.input:hover {
   background-color: #2a2a2a;
   border: 1px solid #6d6d6d;
   color: #7e57c2;

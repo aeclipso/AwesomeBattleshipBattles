@@ -1,0 +1,107 @@
+Install: battleships_battles.sql
+
+Description:
+
+TABLE `ship`
+
+  `id` int(11) NOT NULL,			ship's id (AI)
+
+  `name` varchar(100) NOT NULL,		ship's name
+  
+  `width` int(11) NOT NULL,			ship's width and length define a width and lengths in cells of a Spaceship
+  `length` int(11) NOT NULL,
+  
+  `hp` int(11) NOT NULL,			life points of the ship. If those fall to 0, the ship is destroyed. 5
+points is a good average for a mid-sized ship.
+
+  `pp` int(11) NOT NULL,			The engine power gives the ship a number of points that the
+players will be able to attribute to different actions when activating a ship
+depending on situations. Those will be "power points" shortened with PP.
+Those points can be spent to make the ship go faster, strengthen its shields
+or use its weapons. This attribution is done during the order phase which will
+be detailed later. 10PP represents an average for a basic ship and will be the
+most common value. The biggest vessels can go up to 15PP.
+
+  `sprite` int(11) NOT NULL,		The representation of the ship on the grid.
+  
+  `speed` int(11) NOT NULL,			Maximum number of cells that the ship can move each turn. This specificity can be raised with the support of PP. A scout who is faster, can move
+up to 20 cells. A big ass one can only go 10.
+
+  `handling` int(11) NOT NULL,		Number of cells that a ship that moved on the prior turn needs to
+travel straight this turn if he wants to stay stationery for the next one (inertia
+really). It’s also the minimum number of cells that a ship can go straight before he can turn to the right or to the left AND between each turn. A
+stationary ship can make a free turn before starting to move at the beginning
+of the movement phase. A light and nimble scout will have a handling of 2 or
+3. A big ship will have a handling of 5 for example.
+
+  `shield` int(11) NOT NULL,		Number of damage points that a ship can endure before losing his hull
+points. Worth 0 upon activation of the ship and can receive PP points.
+
+  `owner` varchar(255) NOT NULL,	Player (?) May be we need a table of players (users). In this case id is needed
+  
+  `x` int(11) NOT NULL,				ship's coordinates jn the grid
+  `y` int(11) NOT NULL,
+  
+  `img_url` varchar(255) NOT NULL	image of the ship
+  
+ TABLE `weapon`
+ 
+  `id` int(11) NOT NULL,			weapon id (AI)
+
+  `name` varchar(255) NOT NULL,		name
+
+  `charge` int(11) NOT NULL,		Initially 0 upon activation of the Spaceship. Each PP spent on that weapon
+for that turn adds 1 charge point. Each charge point gives 1D6 for the shooting
+with that weapon. Some weapons have a number of charge points by default always
+available that allows to shoot even if no PP was used for that weapon for that turn.
+
+  `short_min` int(11) NOT NULL,		Number of cells the weapon can reach short range.
+  `short_max` int(11) NOT NULL,		
+  
+  `middle_min` int(11) NOT NULL,	Number of cells the weapon can reach middle range.
+  `middle_max` int(11) NOT NULL,
+  
+  `long_min` int(11) NOT NULL,		Number of cells the weapon can reach long range. Also maximum range for the weapon to be used..
+  `long_max` int(11) NOT NULL,
+  
+  `ez` enum('line','cone','explosion','') NOT NULL,		Description of the cells on which the weapon can shoot..
+Types of ez (ENUM):
+	line		A straing line or columns of 1 cell wide that start from the front of the ship.
+	cone		: The ship’s width for the first cell, plus 1 width cell more at the front
+and back of the ship per cell away from the ship. The ship can choose to shoot
+either from the left or from the right at each use. The drawing will be more
+clear. The ’X’ represent the ship and the ’.’ the effect zone
+
+..........
+ ........
+  ......
+   ....
+   XXXX
+   
+	explosion	The explosion of the amo reaches multiple boxes. The center of the
+explosion is located on the closest target’s hit cell from the shooter. The
+explosion covers "a circle" of 9 cells:
+
+   ...
+  .....
+ .......
+.........
+.........
+.........
+ .......
+  .....
+   ...
+
+Each target covered, even partially by the "circle" receives a number of damage
+points matching the dice throw. Useful to vaporize the fleet of fast little scouts.
+
+  `ship_id` int(11) NOT NULL,		the ship on which this weapon is mounted
+  
+  `pp` int(11) NOT NULL 			(?????) Each weapon can only shoot once per turn. Of course, a ship can decide not to shoot.
+Furthemore some weapons can force the ships to be stationary to be able to shoot. Those
+weapons are usually powerful long range guns. Some weapons are also able to modify the
+value to obtain from 1D6 to provoke success.
+A shoot that reaches its target from the front or the back provokes an "enfilade shoot".
+An enfilade shoot will pass through a ship lengthwise bringing on catastrophic damages.
+To represent that case, a ship that shoot an enfilade shoot will reduce by 1 the value
+required on 1D6 to obtain success.
